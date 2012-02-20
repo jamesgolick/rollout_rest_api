@@ -59,4 +59,14 @@ describe "RolloutRestApi" do
     last_response.should be_ok
     @rollout.info(:chat)[:percentage].should == 22
   end
+
+  it "deactivate_alls" do
+    @rollout.activate_percentage(:chat, 100)
+    @rollout.activate_group(:chat, :caretakers)
+    @rollout.activate_user(:chat, FakeUser.new(129315))
+
+    delete "/chat"
+    last_response.should be_ok
+    @rollout.info(:chat).should == {:groups => [], :users => [], :percentage => 0}
+  end
 end

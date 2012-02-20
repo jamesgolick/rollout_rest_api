@@ -35,6 +35,11 @@ class RolloutRestAPI < Sinatra::Base
     rollout.activate_percentage(params[:feature], params[:percentage])
   end
 
+  delete "/:feature" do
+    rollout.deactivate_all(params[:feature])
+    "ok"
+  end
+
   private
     def rollout
       self.class.rollout

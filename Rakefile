@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "rollout_rest_api"
   gem.homepage = "http://github.com/jamesgolick/rollout_rest_api"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{}
+  gem.description = %Q{}
   gem.email = "jamesgolick@gmail.com"
   gem.authors = ["James Golick"]
   # dependencies defined in Gemfile

@@ -1,6 +1,6 @@
 = rollout_rest_api
 
-Description goes here.
+A sinatra app that exposes a REST API for rollout.
 
 == Copyright
 

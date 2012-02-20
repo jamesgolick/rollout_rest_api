@@ -4,6 +4,8 @@ require "rollout"
 require "yajl"
 
 describe "RolloutRestApi" do
+  class FakeUser < Struct.new(:id); end
+
   def app
     RolloutRestAPI
   end
@@ -35,5 +37,20 @@ describe "RolloutRestApi" do
     delete "/chat/groups", :group => "caretakers"
     last_response.should be_ok
     @rollout.info(:chat)[:groups].should == [:greeters]
+  end
+
+  it "adds a user" do
+    put "/chat/users", :user => 129315
+    last_response.should be_ok
+    @rollout.info(:chat)[:users].should include(129315)
+  end
+
+  it "removes a user" do
+    @rollout.activate_user(:chat, FakeUser.new(1))
+    @rollout.activate_user(:chat, FakeUser.new(129315))
+
+    delete "/chat/users", :user => 129315
+    last_response.should be_ok
+    @rollout.info(:chat)[:users].should == [1]
   end
 end

@@ -31,6 +31,10 @@ class RolloutRestAPI < Sinatra::Base
     "ok"
   end
 
+  put "/:feature/percentage" do
+    rollout.activate_percentage(params[:feature], params[:percentage])
+  end
+
   private
     def rollout
       self.class.rollout

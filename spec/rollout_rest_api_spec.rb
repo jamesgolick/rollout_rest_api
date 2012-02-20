@@ -53,4 +53,10 @@ describe "RolloutRestApi" do
     last_response.should be_ok
     @rollout.info(:chat)[:users].should == [1]
   end
+
+  it "sets the percentage" do
+    put "/chat/percentage", :percentage => 22
+    last_response.should be_ok
+    @rollout.info(:chat)[:percentage].should == 22
+  end
 end

@@ -21,13 +21,13 @@ describe "RolloutRestApi" do
     get "/chat.json"
 
     last_response.should be_ok
-    last_response.body.should == Yajl::Encoder.encode(@rollout.info(:chat))
+    last_response.body.should == Yajl::Encoder.encode(@rollout.get(:chat).to_hash)
   end
 
   it "adds a group" do
     put "/chat/groups", :group => "caretakers"
     last_response.should be_ok
-    @rollout.info(:chat)[:groups].should include(:caretakers)
+    @rollout.get(:chat).groups.should include(:caretakers)
   end
 
   it "removes a group" do
@@ -36,13 +36,13 @@ describe "RolloutRestApi" do
 
     delete "/chat/groups", :group => "caretakers"
     last_response.should be_ok
-    @rollout.info(:chat)[:groups].should == [:greeters]
+    @rollout.get(:chat).groups.should == [:greeters]
   end
 
   it "adds a user" do
     put "/chat/users", :user => 129315
     last_response.should be_ok
-    @rollout.info(:chat)[:users].should include(129315)
+    @rollout.get(:chat).users.should include(129315)
   end
 
   it "removes a user" do
@@ -51,13 +51,13 @@ describe "RolloutRestApi" do
 
     delete "/chat/users", :user => 129315
     last_response.should be_ok
-    @rollout.info(:chat)[:users].should == [1]
+    @rollout.get(:chat).users.should == [1]
   end
 
   it "sets the percentage" do
     put "/chat/percentage", :percentage => 22
     last_response.should be_ok
-    @rollout.info(:chat)[:percentage].should == 22
+    @rollout.get(:chat).percentage.should == 22
   end
 
   it "deactivate_alls" do
@@ -67,6 +67,6 @@ describe "RolloutRestApi" do
 
     delete "/chat"
     last_response.should be_ok
-    @rollout.info(:chat).should == {:groups => [], :users => [], :percentage => 0}
+    @rollout.get(:chat).to_hash.should == {:groups => [], :users => [], :percentage => 0}
   end
 end

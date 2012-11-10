@@ -8,7 +8,7 @@ class RolloutRestAPI < Sinatra::Base
   end
 
   get "/:feature.json" do
-    Yajl::Encoder.encode(rollout.info(params[:feature]))
+    Yajl::Encoder.encode(rollout.get(params[:feature]).to_hash)
   end
 
   put "/:feature/groups" do
@@ -36,7 +36,7 @@ class RolloutRestAPI < Sinatra::Base
   end
 
   delete "/:feature" do
-    rollout.deactivate_all(params[:feature])
+    rollout.deactivate(params[:feature])
     "ok"
   end
 
